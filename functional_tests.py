@@ -28,7 +28,18 @@ class NewVisitorTest(unittest.TestCase):
             "Enter a to-do item"
         )
 
+        # type 'Buy peacock feathers' into a text box
+        inputbox.send_keys("Buy peacock feathers")
 
+        # When hitting enter the page updates to list "1: Buy peacock feathers"
+        inputbox.send_keys(Keys.ENTER)
+        time.sleep(1)
+
+        table = self.browser.find_element_by_id('id_list_table')
+        rows = table.find_elements_by_tag_name("tr")
+        self.assertTrue(
+            any(row.text == "1: Buy peacock feathers" for row in rows)
+        )
 
         self.fail("Finish the test!")
 
